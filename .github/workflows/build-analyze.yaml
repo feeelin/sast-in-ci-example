@@ -26,9 +26,10 @@ jobs:
           pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck
       - name: Convert report
         run: |
-          plog-converter -t sarif -o report.sarif sast-in-ci-example.json
+          plog-converter sast-in-ci-example.json -t json -n relative -R toRelative -r $PWD
+          plog-converter relative.json -t sarif -n pvs-report -r file://
       - name: Publish report
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: report.sarif
+          sarif_file: pvs-report.sarif
           category: PVS-Studio
