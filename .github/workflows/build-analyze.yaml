@@ -23,7 +23,7 @@ jobs:
           dotnet build sast-in-ci-example.sln
       - name: Analyze
         run: |
-          pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r
+          pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck
       - name: Convert report
         run: |
           plog-converter -t sarif -o report.sarif sast-in-ci-example.json
