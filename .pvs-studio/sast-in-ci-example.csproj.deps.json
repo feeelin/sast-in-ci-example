@@ -1,0 +1,23 @@
+[
+  {
+    "TranslationUnit": "D:\\Projects\\sast-in-ci-example\\obj\\Debug\\net9.0\\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs",
+    "Dependencies": {
+      "D:\\Projects\\sast-in-ci-example\\obj\\Debug\\net9.0\\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs": "9e76499c4e5cb623ad4889eaa99b1a53d9c970efcf902d8b096e78a19ee4285d"
+    },
+    "ContainsWarnings": false
+  },
+  {
+    "TranslationUnit": "D:\\Projects\\sast-in-ci-example\\obj\\Debug\\net9.0\\sast-in-ci-example.AssemblyInfo.cs",
+    "Dependencies": {
+      "D:\\Projects\\sast-in-ci-example\\obj\\Debug\\net9.0\\sast-in-ci-example.AssemblyInfo.cs": "4cfeef5239a22c4039962cd2747760bcb2b6346cfa6aad1646a11ea96d504d07"
+    },
+    "ContainsWarnings": false
+  },
+  {
+    "TranslationUnit": "D:\\Projects\\sast-in-ci-example\\Program.cs",
+    "Dependencies": {
+      "D:\\Projects\\sast-in-ci-example\\Program.cs": "6c657d5cae608182173e9dbff0b0bfc94a5362cc20cbfe0f511c166746471106"
+    },
+    "ContainsWarnings": true
+  }
+]
