@@ -18,6 +18,6 @@
     "Dependencies": {
       "D:\\Projects\\sast-in-ci-example\\Program.cs": "6c657d5cae608182173e9dbff0b0bfc94a5362cc20cbfe0f511c166746471106"
     },
-    "ContainsWarnings": true
+    "ContainsWarnings": false
   }
 ]
