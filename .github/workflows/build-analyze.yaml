@@ -3,6 +3,7 @@ on: workflow_dispatch
 jobs:
   build-analyze:
     runs-on: ubuntu-24.04
+    permissions: write-all
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
