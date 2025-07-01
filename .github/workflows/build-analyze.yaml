@@ -1,5 +1,7 @@
 name: Build and PVS-Studio analysis
-on: workflow_dispatch
+on:
+  pull_request:
+    branches: [main]
 jobs:
   build-analyze:
     runs-on: ubuntu-24.04
