@@ -27,13 +27,16 @@ jobs:
       - name: Analyze
         run: |
           pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F
+      - name: Commit dependency caches
+        run: |
+          git commit .pvs-studio -m "🤖 PVS-Studio dependency caches"
       - name: Convert report
-        if: always()
+        if: steps.Analyze.outputs.exit_code == '8'
         run: |
           plog-converter sast-in-ci-example.json -t json -n relative -R toRelative -r $PWD
           plog-converter relative.json -t sarif -n pvs-report -r file://
       - name: Publish report
-        if: always()
+        if: steps.Analyze.outputs.exit_code == '8'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: pvs-report.sarif
