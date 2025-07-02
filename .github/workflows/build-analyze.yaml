@@ -29,6 +29,8 @@ jobs:
           pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F
       - name: Commit dependency caches
         run: |
+          git config --global user.email "valerfilatoff@gmail.com"
+          git config --global user.name "Valerii Filatov"
           git commit .pvs-studio -m "🤖 PVS-Studio dependency caches"
       - name: Convert report
         if: steps.Analyze.outputs.exit_code == '8'
