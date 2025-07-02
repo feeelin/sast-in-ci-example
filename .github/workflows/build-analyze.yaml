@@ -33,12 +33,10 @@ jobs:
           git config --global user.name "Valerii Filatov"
           git commit .pvs-studio -m "🤖 PVS-Studio dependency caches"
       - name: Convert report
-        if: steps.Analyze.outputs.exit_code == '8'
         run: |
           plog-converter sast-in-ci-example.json -t json -n relative -R toRelative -r $PWD
           plog-converter relative.json -t sarif -n pvs-report -r file://
       - name: Publish report
-        if: steps.Analyze.outputs.exit_code == '8'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: pvs-report.sarif
