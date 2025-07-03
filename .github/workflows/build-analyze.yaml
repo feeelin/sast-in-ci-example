@@ -2,8 +2,12 @@ name: Build and PVS-Studio analysis
 on:
   pull_request:
     branches: [main]
+    paths:
+      - '**.cs'
+      - '.github/workflows'
 jobs:
   build-analyze:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
     permissions: write-all
     steps:
