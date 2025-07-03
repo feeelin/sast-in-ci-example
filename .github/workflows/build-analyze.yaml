@@ -2,9 +2,8 @@ name: Build and PVS-Studio analysis
 on:
   pull_request:
     branches: [main]
-    paths:
-      - '**.cs'
-      - '.github/workflows'
+      paths-ignore:
+        - '.pvs-studio/**'
 jobs:
   build-analyze:
     if: github.actor != 'github-actions[bot]'
