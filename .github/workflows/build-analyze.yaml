@@ -26,9 +26,6 @@ jobs:
           sudo apt install pvs-studio
           sudo apt install pvs-studio-dotnet
           pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
-      - name: Build
-        run: |
-          dotnet build sast-in-ci-example.sln
       - name: Analyze
         run: |
           pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F
