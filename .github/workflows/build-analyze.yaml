@@ -5,7 +5,7 @@ on:
     paths:
       - '**.cs'
       - '**.sln'
-      - '.github/workflows/**
+      - '.github/workflows/**'
 
 permissions:
   contents: write
