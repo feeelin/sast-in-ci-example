@@ -1,5 +1,19 @@
 [
   {
+    "TranslationUnit": "/home/runner/work/sast-in-ci-example/sast-in-ci-example/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs",
+    "Dependencies": {
+      "/home/runner/work/sast-in-ci-example/sast-in-ci-example/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs": "0be1a8399fbefa553e3202c44c7fb653cf774b73b6633960d3f702df47a494b2"
+    },
+    "ContainsWarnings": false
+  },
+  {
+    "TranslationUnit": "/home/runner/work/sast-in-ci-example/sast-in-ci-example/obj/Debug/net9.0/sast-in-ci-example.AssemblyInfo.cs",
+    "Dependencies": {
+      "/home/runner/work/sast-in-ci-example/sast-in-ci-example/obj/Debug/net9.0/sast-in-ci-example.AssemblyInfo.cs": "0c23c364698b961dd752e382b355242cd0a6450ec8cf1fdfed07edb7ed81059f"
+    },
+    "ContainsWarnings": false
+  },
+  {
     "TranslationUnit": "/home/runner/work/sast-in-ci-example/sast-in-ci-example/Program.cs",
     "Dependencies": {
       "/home/runner/work/sast-in-ci-example/sast-in-ci-example/Program.cs": "34dc883bd4bfce1631a4ba223a1f905b8b8d8321dcc420bc196e51dc5f60576b"
