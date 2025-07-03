@@ -9,7 +9,7 @@
   {
     "TranslationUnit": "/home/runner/work/sast-in-ci-example/sast-in-ci-example/obj/Debug/net9.0/sast-in-ci-example.AssemblyInfo.cs",
     "Dependencies": {
-      "/home/runner/work/sast-in-ci-example/sast-in-ci-example/obj/Debug/net9.0/sast-in-ci-example.AssemblyInfo.cs": "50745e66b072543105fceb94b8c851b7e4f6b6046167a0345a4e50afae35f0b9"
+      "/home/runner/work/sast-in-ci-example/sast-in-ci-example/obj/Debug/net9.0/sast-in-ci-example.AssemblyInfo.cs": "c313726e3377fd113443de750b7377b01c3cee9d9222db218c36788d3e4de531"
     },
     "ContainsWarnings": false
   },
