@@ -1,6 +1,7 @@
 name: Build and PVS-Studio analysis
 on:
   pull_request:
+    branches: [main]
 jobs:
   build-analyze:
     runs-on: ubuntu-24.04
@@ -38,7 +39,7 @@ jobs:
           sarif_file: pvs-report.sarif
           category: PVS-Studio
       - name: Commit dependency caches
-        evn:
+        env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
           git config user.name 'github-actions[bot]'
