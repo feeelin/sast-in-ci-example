@@ -17,19 +17,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.0' 
-
-      - name: Install PVS-Studio
+      - name: Install tools
         run: |
+          run: |
           wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
             | sudo apt-key add -
           sudo wget -O /etc/apt/sources.list.d/viva64.list \
             https://files.pvs-studio.com/etc/viva64.list
+          sudo add-apt-repository ppa:dotnet/backports
           sudo apt update
-          sudo apt install pvs-studio pvs-studio-dotnet
+          sudo apt-get install -y dotnet-sdk-9.0
+          sudo apt install pvs-studio
+          sudo apt install pvs-studio-dotnet
           pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
 
       - name: Analyze
