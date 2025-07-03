@@ -2,7 +2,7 @@ name: Build and PVS-Studio analysis
 on:
   pull_request:
     branches: [main]
-      paths:
+    paths:
       - '**.cs'
       - '**.sln'
       - '.github/workflows/**
@@ -14,10 +14,9 @@ jobs:
   build-analyze:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
-    permissions: write-all
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Install tools
