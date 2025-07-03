@@ -45,4 +45,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git commit .pvs-studio -m "PVS-Studio dependency caches"
+          git pull --rebase origin $BRANCH_NAME
           git push origin HEAD:$BRANCH_NAME
