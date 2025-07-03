@@ -33,7 +33,7 @@ jobs:
 
       - name: Analyze
         run: |
-          pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F
+          pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F -C .pvsconfig
 
       - name: Convert report
         if: always()
