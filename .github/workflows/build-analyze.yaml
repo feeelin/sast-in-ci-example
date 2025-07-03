@@ -2,8 +2,14 @@ name: Build and PVS-Studio analysis
 on:
   pull_request:
     branches: [main]
-      paths-ignore:
-        - '.pvs-studio/**'
+      paths:
+      - '**.cs'
+      - '**.sln'
+      - '.github/workflows/**
+
+permissions:
+  contents: write
+
 jobs:
   build-analyze:
     if: github.actor != 'github-actions[bot]'
@@ -12,6 +18,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Install tools
         run: |
           wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
@@ -47,6 +55,13 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git commit .pvs-studio -m "PVS-Studio dependency caches"
-          git pull --rebase origin $BRANCH_NAME
-          git push origin HEAD:$BRANCH_NAME
+
+          git add .pvs-studio
+
+          if ! git diff --cached --quiet; then
+            git commit -m "PVS-Studio dependency caches"
+            git pull --rebase origin "$BRANCH_NAME"
+            git push origin HEAD:"$BRANCH_NAME"
+          else
+            echo "No changes to commit, skipping push"
+          fi
