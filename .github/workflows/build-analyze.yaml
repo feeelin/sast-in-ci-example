@@ -38,8 +38,8 @@ jobs:
       - name: Convert report
         if: always()
         run: |
-          plog-converter sast-in-ci-example.json -t json -n relative -R toRelative -r $PWD
-          plog-converter relative.json -t sarif -n pvs-report -r file://
+          plog-converter sast-in-ci-example.json -a GA:1,2,3,4 -t json -n relative -R toRelative -r $PWD
+          plog-converter relative.json -a GA:1,2,3,4 -t sarif -n pvs-report -r file://
 
       - name: Publish report
         if: always()
