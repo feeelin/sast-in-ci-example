@@ -9,6 +9,7 @@ jobs:
   build-analyze:
     if: github.actor != 'github-actions[bot]'
     permissions: write-all
+    secrets: inherit
     runs-on: ubuntu-24.04
     steps:
 
