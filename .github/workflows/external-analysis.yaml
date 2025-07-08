@@ -1,14 +1,12 @@
 name: Build and PVS-Studio analysis
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  build-analyze:
-    if: github.actor != 'github-actions[bot]' && github.event.pull_request.head.repo.full_name == github.repository
-    permissions: write-all
+  external-analysis:
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    environment: pr-review-required
     runs-on: ubuntu-24.04
     steps:
 
@@ -47,20 +45,3 @@ jobs:
         with:
           sarif_file: pvs-report.sarif
           category: PVS-Studio
-
-      - name: Commit dependency caches
-        env:
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-          git add .pvs-studio
-
-          if ! git diff --cached --quiet; then
-            git commit -m "[skip actions] PVS-Studio dependency caches"
-            git pull --rebase origin "$BRANCH_NAME"
-            git push origin HEAD:"$BRANCH_NAME"
-          else
-            echo "No changes to commit, skipping push"
-          fi
