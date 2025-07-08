@@ -1,0 +1,43 @@
+name: Fork source code build and PVS-Studio analysis
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  external-analysis:
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    environment: pr-review-required
+    permissions:
+      security-events: write
+      contents: read
+    runs-on: ubuntu-24.04
+    steps:
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install tools
+        run: |
+          run: |
+          wget -q -O - https://files.pvs-studio.com/etc/pubkey.txt \
+            | sudo apt-key add -
+          sudo wget -O /etc/apt/sources.list.d/viva64.list \
+            https://files.pvs-studio.com/etc/viva64.list
+          sudo add-apt-repository ppa:dotnet/backports
+          sudo apt update
+          sudo apt-get install -y dotnet-sdk-9.0
+          sudo apt install pvs-studio
+          sudo apt install pvs-studio-dotnet
+          pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
+          
+      - name: Analyze
+        run: |
+          pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F -C .pvsconfig
+      
+      - name: Convert report
+        if: always()
+        run: |
+          plog-converter sast-in-ci-example.json -a GA:1,2,3 -t json -n relative -R toRelative -r $PWD
+          plog-converter relative.json -a GA:1,2,3 -t sarif -n pvs-report -r file://
