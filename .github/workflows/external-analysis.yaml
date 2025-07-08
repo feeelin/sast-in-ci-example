@@ -41,3 +41,10 @@ jobs:
         run: |
           plog-converter sast-in-ci-example.json -a GA:1,2,3 -t json -n relative -R toRelative -r $PWD
           plog-converter relative.json -a GA:1,2,3 -t sarif -n pvs-report -r file://
+
+      - name: Publish report
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: pvs-report.sarif
+          category: PVS-Studio
