@@ -7,6 +7,8 @@ jobs:
   external-analysis:
     if: github.event.pull_request.head.repo.full_name != github.repository
     environment: pr-review-required
+    security-events: write
+    contents: read
     runs-on: ubuntu-24.04
     steps:
 
@@ -28,17 +30,37 @@ jobs:
           sudo apt install pvs-studio
           sudo apt install pvs-studio-dotnet
           pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
+          
       - name: Analyze
         run: |
           pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F -C .pvsconfig
+      
       - name: Convert report
         if: always()
         run: |
           plog-converter sast-in-ci-example.json -a GA:1,2,3 -t json -n relative -R toRelative -r $PWD
           plog-converter relative.json -a GA:1,2,3 -t sarif -n pvs-report -r file://
+
       - name: Publish report
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: pvs-report.sarif
           category: PVS-Studio
+          
+      - name: Commit dependency caches
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          git add .pvs-studio
+
+          if ! git diff --cached --quiet; then
+            git commit -m "[skip actions] PVS-Studio dependency caches"
+            git pull --rebase origin "$BRANCH_NAME"
+            git push origin HEAD:"$BRANCH_NAME"
+          else
+            echo "No changes to commit, skipping push"
+          fi
