@@ -1,13 +1,12 @@
 name: Build and PVS-Studio analysis
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  build-analyze:
-    if: github.actor != 'github-actions[bot]' && github.event.pull_request.head.repo.full_name == github.repository
+  external-analysis:
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    environment: pr-review-required
     runs-on: ubuntu-24.04
     steps:
 
@@ -29,17 +28,14 @@ jobs:
           sudo apt install pvs-studio
           sudo apt install pvs-studio-dotnet
           pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
-
       - name: Analyze
         run: |
           pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F -C .pvsconfig
-
       - name: Convert report
         if: always()
         run: |
-          plog-converter sast-in-ci-example.json -t json -n relative -R toRelative -r $PWD
-          plog-converter relative.json -t sarif -n pvs-report -r file://
-
+          plog-converter sast-in-ci-example.json -a GA:1,2,3 -t json -n relative -R toRelative -r $PWD
+          plog-converter relative.json -a GA:1,2,3 -t sarif -n pvs-report -r file://
       - name: Publish report
         if: always()
         uses: github/codeql-action/upload-sarif@v3
