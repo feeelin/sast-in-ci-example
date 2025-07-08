@@ -1,4 +1,4 @@
-name: Build and PVS-Studio analysis
+name: Fork source code build and PVS-Studio analysis
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
