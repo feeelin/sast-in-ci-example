@@ -7,8 +7,11 @@ on:
 
 jobs:
   build-analyze:
-    if: github.actor != 'github-actions[bot]'
-    permissions: write-all
+    if: github.actor != 'github-actions[bot]' &&
+      (
+        github.event_name != 'pull_request' ||
+        github.event.pull_request.head.repo.full_name == github.repository
+      )
     runs-on: ubuntu-24.04
     steps:
 
