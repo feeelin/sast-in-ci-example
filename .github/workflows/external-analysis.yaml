@@ -48,3 +48,4 @@ jobs:
         with:
           sarif_file: pvs-report.sarif
           category: PVS-Studio
+          commit_sha: ${{ github.event.pull_request.head.sha }}
