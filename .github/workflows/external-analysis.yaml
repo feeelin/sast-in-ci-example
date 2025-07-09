@@ -1,6 +1,6 @@
 name: Fork source code build and PVS-Studio analysis
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
@@ -48,3 +48,4 @@ jobs:
         with:
           sarif_file: pvs-report.sarif
           category: PVS-Studio
+          commit_sha: ${{ github.event.pull_request.head.sha }}
