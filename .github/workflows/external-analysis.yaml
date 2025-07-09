@@ -1,6 +1,6 @@
 name: Fork source code build and PVS-Studio analysis
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
