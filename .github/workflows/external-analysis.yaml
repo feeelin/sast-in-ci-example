@@ -49,4 +49,4 @@ jobs:
           sarif_file: pvs-report.sarif
           category: PVS-Studio
           sha: ${{ github.event.pull_request.head.sha }}
-          ref: refs/heads/${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
