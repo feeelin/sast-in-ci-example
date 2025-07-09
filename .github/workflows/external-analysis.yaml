@@ -35,18 +35,3 @@ jobs:
       - name: Analyze
         run: |
           pvs-studio-dotnet -t sast-in-ci-example.sln -o ./sast-in-ci-example.json -r --disableLicenseExpirationCheck -F -C .pvsconfig
-      
-      - name: Convert report
-        if: always()
-        run: |
-          plog-converter sast-in-ci-example.json -a GA:1,2,3 -t json -n relative -R toRelative -r $PWD
-          plog-converter relative.json -a GA:1,2,3 -t sarif -n pvs-report -r file://
-
-      - name: Publish report
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: pvs-report.sarif
-          category: PVS-Studio
-          sha: ${{ github.event.pull_request.head.sha }}
-          ref: refs/heads/${{ github.event.pull_request.head.ref }}
